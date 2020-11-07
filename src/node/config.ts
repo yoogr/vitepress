@@ -4,7 +4,12 @@ import chalk from 'chalk'
 import globby from 'globby'
 import { createResolver, APP_PATH } from './resolver'
 import { Resolver } from 'vite'
-import { SiteData, HeadConfig, LocaleConfig } from '../../types/shared'
+import {
+  SiteData,
+  HeadConfig,
+  LocaleConfig,
+  MarkdownOptions
+} from '../../types/shared'
 export { resolveSiteDataByRoute } from './shared/config'
 
 const debug = require('debug')('vitepress:config')
@@ -15,6 +20,7 @@ export interface UserConfig<ThemeConfig = any> {
   title?: string
   description?: string
   head?: HeadConfig[]
+  markdown?: MarkdownOptions
   themeConfig?: ThemeConfig
   locales?: Record<string, LocaleConfig>
   alias?: Record<string, string>
@@ -86,6 +92,7 @@ export async function resolveSiteData(root: string): Promise<SiteData> {
     description: userConfig.description || 'A VitePress site',
     base: userConfig.base ? userConfig.base.replace(/([^/])$/, '$1/') : '/',
     head: userConfig.head || [],
+    markdown: userConfig.markdown || {},
     themeConfig: userConfig.themeConfig || {},
     locales: userConfig.locales || {}
   }

@@ -11,24 +11,11 @@ import { hoistPlugin } from './plugins/hoist'
 import { preWrapperPlugin } from './plugins/preWrapper'
 import { linkPlugin } from './plugins/link'
 import { extractHeaderPlugin } from './plugins/header'
-import { Header } from '../../../types/shared'
+import { Header, MarkdownOptions } from '../../../types/shared'
 
 const emoji = require('markdown-it-emoji')
 const anchor = require('markdown-it-anchor')
 const toc = require('markdown-it-table-of-contents')
-
-export interface MarkdownOptions extends MarkdownIt.Options {
-  lineNumbers?: boolean
-  config?: (md: MarkdownIt) => void
-  anchor?: {
-    permalink?: boolean
-    permalinkBefore?: boolean
-    permalinkSymbol?: string
-  }
-  // https://github.com/Oktavilla/markdown-it-table-of-contents
-  toc?: any
-  externalLinks?: Record<string, string>
-}
 
 export interface MarkdownParsedData {
   hoistedTags?: string[]

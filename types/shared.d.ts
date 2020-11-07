@@ -1,4 +1,5 @@
 // types shared between server and client.
+import MarkdownIt from 'markdown-it'
 
 export interface LocaleConfig {
   lang: string
@@ -9,12 +10,26 @@ export interface LocaleConfig {
   selectText?: string
 }
 
+export interface MarkdownOptions extends MarkdownIt.Options {
+  lineNumbers?: boolean
+  config?: (md: MarkdownIt) => void
+  anchor?: {
+    permalink?: boolean
+    permalinkBefore?: boolean
+    permalinkSymbol?: string
+  }
+  // https://github.com/Oktavilla/markdown-it-table-of-contents
+  toc?: any
+  externalLinks?: Record<string, string>
+}
+
 export interface SiteData<ThemeConfig = any> {
   lang: string
   title: string
   description: string
   base: string
   head: HeadConfig[]
+  markdown?: MarkdownOptions
   themeConfig: ThemeConfig
   locales: Record<string, LocaleConfig>
 }

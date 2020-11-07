@@ -18,7 +18,10 @@ function createVitePressPlugin({
   site: initialSiteData
 }: SiteConfig): ServerPlugin {
   return ({ app, root, watcher, resolver }) => {
-    const markdownToVue = createMarkdownToVueRenderFn(root)
+    const markdownToVue = createMarkdownToVueRenderFn(
+      root,
+      initialSiteData.markdown
+    )
 
     // hot reload .md files as .vue files
     watcher.on('change', async (file) => {
