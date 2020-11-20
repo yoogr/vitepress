@@ -1,4 +1,5 @@
 import path from 'path'
+import fs from 'fs'
 import { Resolver } from 'vite'
 import { UserConfig } from './config'
 
@@ -29,9 +30,17 @@ export function createResolver(
       vitepress: '/@app/exports.js',
       [SITE_DATA_ID]: SITE_DATA_REQUEST_PATH
     },
-    requestToFile(publicPath) {
+    requestToFile(publicPath, root) {
       if (publicPath === SITE_DATA_REQUEST_PATH) {
         return SITE_DATA_REQUEST_PATH
+      }
+      const publicDirPath = path.join(
+        root,
+        '.vitepress/public',
+        publicPath.slice(1)
+      )
+      if (fs.existsSync(publicDirPath)) {
+        return publicDirPath
       }
     },
     fileToRequest(filePath) {
